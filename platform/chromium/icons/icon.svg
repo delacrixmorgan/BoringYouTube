@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <rect width="128" height="128" fill="#666666" rx="16"/>
+  <rect x="20" y="35" width="88" height="58" fill="#333333" rx="8"/>
+  <rect x="28" y="43" width="72" height="42" fill="#999999" rx="4"/>
+  <circle cx="40" cy="55" r="3" fill="#cccccc"/>
+  <rect x="50" y="52" width="20" height="6" fill="#cccccc" rx="3"/>
+  <rect x="50" y="62" width="35" height="4" fill="#cccccc" rx="2"/>
+  <rect x="50" y="70" width="25" height="4" fill="#cccccc" rx="2"/>
+  <text x="64" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#cccccc">BORING</text>
+</svg>

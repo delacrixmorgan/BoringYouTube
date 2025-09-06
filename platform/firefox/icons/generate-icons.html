@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Boring YouTube Icons</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        .icon-container { display: inline-block; margin: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Boring YouTube Extension Icons</h1>
+    <p>Right-click on each canvas and "Save image as..." to save the PNG files.</p>
+    
+    <div class="icon-container">
+        <canvas id="icon16" width="16" height="16"></canvas>
+        <br>icon-16.png
+    </div>
+    
+    <div class="icon-container">
+        <canvas id="icon48" width="48" height="48"></canvas>
+        <br>icon-48.png
+    </div>
+    
+    <div class="icon-container">
+        <canvas id="icon128" width="128" height="128"></canvas>
+        <br>icon-128.png
+    </div>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#666666';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Video thumbnail representation
+            const thumbWidth = size * 0.7;
+            const thumbHeight = size * 0.45;
+            const thumbX = (size - thumbWidth) / 2;
+            const thumbY = size * 0.27;
+            
+            ctx.fillStyle = '#333333';
+            ctx.fillRect(thumbX, thumbY, thumbWidth, thumbHeight);
+            
+            // Inner content area
+            const innerPadding = size * 0.06;
+            ctx.fillStyle = '#999999';
+            ctx.fillRect(thumbX + innerPadding, thumbY + innerPadding, 
+                        thumbWidth - 2 * innerPadding, thumbHeight - 2 * innerPadding);
+            
+            // Play button or content indicator
+            if (size >= 48) {
+                ctx.fillStyle = '#cccccc';
+                const centerX = size / 2;
+                const centerY = thumbY + thumbHeight / 2;
+                const playSize = size * 0.08;
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX - playSize, centerY - playSize);
+                ctx.lineTo(centerX + playSize, centerY);
+                ctx.lineTo(centerX - playSize, centerY + playSize);
+                ctx.closePath();
+                ctx.fill();
+            }
+            
+            // "B" for Boring (only on larger icons)
+            if (size >= 48) {
+                ctx.fillStyle = '#cccccc';
+                ctx.font = `bold ${size * 0.15}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.fillText('B', size / 2, size * 0.9);
+            }
+        }
+        
+        // Generate all icon sizes
+        drawIcon(document.getElementById('icon16'), 16);
+        drawIcon(document.getElementById('icon48'), 48);
+        drawIcon(document.getElementById('icon128'), 128);
+    </script>
+</body>
+</html>
