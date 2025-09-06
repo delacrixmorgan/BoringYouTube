@@ -109,12 +109,15 @@
                 toggleExtension(response.enabled);
             } else {
                 // Fallback: try to get state directly from storage
-                chrome.storage.sync.get(['extensionEnabled'], function(result) {
+                chrome.storage.local.get(['extensionEnabled'], function(result) {
                     if (chrome.runtime.lastError) {
                         console.error('Error accessing storage:', chrome.runtime.lastError);
                         toggleExtension(true); // Default to enabled
                     } else {
-                        const isEnabled = result.extensionEnabled !== false;
+                        console.log('Content script: Direct storage result:', result);
+                        // Fix boolean logic - default to true only if undefined, respect explicit false
+                        const isEnabled = result.extensionEnabled !== undefined ? result.extensionEnabled : true;
+                        console.log('Content script: Setting enabled state:', isEnabled);
                         toggleExtension(isEnabled);
                     }
                 });
@@ -226,6 +229,9 @@
     // Listen for messages from popup
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         if (request.action === 'toggleExtension') {
+            toggleExtension(request.enabled);
+        } else if (request.action === 'forceSync') {
+            // Force-sync state to prevent mismatches (Firefox fix)
             toggleExtension(request.enabled);
         }
     });
