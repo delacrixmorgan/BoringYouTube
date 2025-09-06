@@ -3,10 +3,11 @@
 
 // Initialize extension state
 function initializeExtensionState() {
-    chrome.storage.sync.get(['extensionEnabled'], function(result) {
+    chrome.storage.local.get(['extensionEnabled'], function(result) {
+        console.log('Background: Initializing state, current:', result);
         // If no value is stored, set default to true
         if (result.extensionEnabled === undefined) {
-            chrome.storage.sync.set({ extensionEnabled: true }, function() {
+            chrome.storage.local.set({ extensionEnabled: true }, function() {
                 console.log('Boring YouTube extension state initialized to enabled');
             });
         }
@@ -15,7 +16,7 @@ function initializeExtensionState() {
 
 chrome.runtime.onInstalled.addListener(function() {
     // Set default state to enabled
-    chrome.storage.sync.set({ extensionEnabled: true });
+    chrome.storage.local.set({ extensionEnabled: true });
     console.log('Boring YouTube extension installed');
 });
 
@@ -31,9 +32,11 @@ initializeExtensionState();
 // Handle messages from popup and content scripts
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === 'getState') {
-        chrome.storage.sync.get(['extensionEnabled'], function(result) {
-            // Ensure we always return a boolean value, defaulting to true
-            const isEnabled = result.extensionEnabled !== false;
+        chrome.storage.local.get(['extensionEnabled'], function(result) {
+            console.log('Background: getState request, result:', result);
+            // Fix boolean logic - default to true only if undefined, respect explicit false
+            const isEnabled = result.extensionEnabled !== undefined ? result.extensionEnabled : true;
+            console.log('Background: Returning enabled state:', isEnabled);
             sendResponse({ enabled: isEnabled });
         });
         return true; // Keep message channel open for async response
@@ -42,7 +45,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 // Optional: Update icon based on state (for visual feedback)
 chrome.storage.onChanged.addListener(function(changes, namespace) {
-    if (namespace === 'sync' && changes.extensionEnabled) {
+    if (namespace === 'local' && changes.extensionEnabled) {
         const isEnabled = changes.extensionEnabled.newValue;
         
         // You can update the icon here if you have different icon states

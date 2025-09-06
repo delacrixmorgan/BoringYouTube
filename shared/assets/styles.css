@@ -1,0 +1,87 @@
+/* Boring YouTube - Greyscale thumbnails */
+
+/* Main video thumbnails in search results, home page, and recommendations */
+img[src*="hqdefault.jpg"],
+img[src*="mqdefault.jpg"],
+img[src*="sddefault.jpg"],
+img[src*="maxresdefault.jpg"],
+img[src*="default.jpg"],
+ytd-thumbnail img,
+yt-img-shadow img,
+.ytd-thumbnail img,
+.yt-simple-endpoint img[src*="youtube"],
+#thumbnail img,
+ytd-video-preview img,
+ytd-rich-item-renderer img,
+ytd-compact-video-renderer img,
+ytd-grid-video-renderer img,
+ytd-video-renderer img,
+ytd-playlist-thumbnail img,
+ytd-channel-avatar img,
+.ytd-playlist-panel-video-renderer img,
+.ytd-compact-playlist-renderer img,
+.ytd-shelf-renderer img,
+ytd-shorts-lockup-view-model img,
+.ytd-reel-item-renderer img {
+  filter: grayscale(100%) !important;
+  transition: filter 0.2s ease !important;
+}
+
+/* Hover effect - reduce greyscale on hover for better UX */
+img[src*="hqdefault.jpg"]:hover,
+img[src*="mqdefault.jpg"]:hover,
+img[src*="sddefault.jpg"]:hover,
+img[src*="maxresdefault.jpg"]:hover,
+img[src*="default.jpg"]:hover,
+ytd-thumbnail img:hover,
+yt-img-shadow img:hover,
+.ytd-thumbnail img:hover,
+.yt-simple-endpoint img[src*="youtube"]:hover,
+#thumbnail img:hover,
+ytd-video-preview img:hover,
+ytd-rich-item-renderer img:hover,
+ytd-compact-video-renderer img:hover,
+ytd-grid-video-renderer img:hover,
+ytd-video-renderer img:hover,
+ytd-playlist-thumbnail img:hover,
+ytd-channel-avatar img:hover,
+.ytd-playlist-panel-video-renderer img:hover,
+.ytd-compact-playlist-renderer img:hover,
+.ytd-shelf-renderer img:hover,
+ytd-shorts-lockup-view-model img:hover,
+.ytd-reel-item-renderer img:hover {
+  filter: grayscale(70%) !important;
+}
+
+/* Exclude the main video player and its thumbnails when in fullscreen or playing */
+.html5-video-player img,
+.ytp-videowall-still img,
+video,
+.html5-main-video {
+  filter: none !important;
+}
+
+/* Disable greyscale when fullscreen is active */
+.ytp-fullscreen img,
+.ytp-fullscreen ytd-thumbnail img,
+.ytp-fullscreen yt-img-shadow img,
+body.fullscreen img[src*="youtube"],
+html.fullscreen img[src*="youtube"] {
+  filter: none !important;
+}
+
+/* Ensure YouTube Shorts thumbnails are also affected */
+ytd-shorts-lockup-view-model-v2 img,
+.ytd-shorts-lockup-view-model img,
+#shorts-container img[src*="youtube"] {
+  filter: grayscale(100%) !important;
+  transition: filter 0.2s ease !important;
+}
+
+/* Channel page thumbnails */
+ytd-channel-video-player-renderer img,
+ytd-c4-tabbed-header-renderer img,
+.ytd-channel-video-player-renderer img {
+  filter: grayscale(100%) !important;
+  transition: filter 0.2s ease !important;
+}

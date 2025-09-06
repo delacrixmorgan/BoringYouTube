@@ -146,3 +146,28 @@ input:checked + .slider:before {
     outline: 2px solid #4CAF50;
     outline-offset: 2px;
 }
+
+.version-section {
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.version-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.version-link:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.version-text {
+    display: block;
+    margin-bottom: 2px;
+}

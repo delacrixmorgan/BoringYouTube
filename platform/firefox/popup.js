@@ -4,9 +4,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const status = document.getElementById('status');
     const statusText = document.getElementById('statusText');
     
+    // Force-sync state with content script to prevent state mismatches
+    function syncWithContentScript(isEnabled) {
+        chrome.tabs.query({ url: "*://www.youtube.com/*" }, function(tabs) {
+            tabs.forEach(tab => {
+                chrome.tabs.sendMessage(tab.id, {
+                    action: 'forceSync',
+                    enabled: isEnabled
+                });
+            });
+        });
+        
+        chrome.tabs.query({ url: "*://youtube.com/*" }, function(tabs) {
+            tabs.forEach(tab => {
+                chrome.tabs.sendMessage(tab.id, {
+                    action: 'forceSync',
+                    enabled: isEnabled
+                });
+            });
+        });
+    }
+    
     // Load current state with retry mechanism
     function loadExtensionState(retryCount = 0) {
-        chrome.storage.sync.get(['extensionEnabled'], function(result) {
+        chrome.storage.local.get(['extensionEnabled'], function(result) {
             if (chrome.runtime.lastError) {
                 console.error('Error loading extension state:', chrome.runtime.lastError);
                 if (retryCount < 3) {
@@ -17,19 +38,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 result = { extensionEnabled: true };
             }
             
-            const isEnabled = result.extensionEnabled !== false; // Default to true
+            console.log('Loaded storage result:', result);
+            // Fix boolean logic - default to true only if undefined, respect explicit false
+            const isEnabled = result.extensionEnabled !== undefined ? result.extensionEnabled : true;
+            console.log('Extension enabled:', isEnabled);
             updateUI(isEnabled);
             toggle.checked = isEnabled;
+            
+            // Force-sync with content script to prevent state mismatches
+            syncWithContentScript(isEnabled);
             
             // Also verify state with background script
             chrome.runtime.sendMessage({ action: 'getState' }, function(response) {
                 if (response && typeof response.enabled === 'boolean') {
+                    console.log('Background script state:', response.enabled);
                     // If there's a mismatch, use the background script's state
                     if (response.enabled !== isEnabled) {
                         updateUI(response.enabled);
                         toggle.checked = response.enabled;
                         // Update storage to match
-                        chrome.storage.sync.set({ extensionEnabled: response.enabled });
+                        chrome.storage.local.set({ extensionEnabled: response.enabled });
+                        // Re-sync with content script using correct state
+                        syncWithContentScript(response.enabled);
                     }
                 }
             });
@@ -42,9 +72,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle toggle change
     toggle.addEventListener('change', function() {
         const isEnabled = toggle.checked;
+        console.log('Toggle changed to:', isEnabled);
         
-        // Save state
-        chrome.storage.sync.set({ extensionEnabled: isEnabled }, function() {
+        // Save state using local storage for Firefox compatibility
+        chrome.storage.local.set({ extensionEnabled: isEnabled }, function() {
+            if (chrome.runtime.lastError) {
+                console.error('Error saving state:', chrome.runtime.lastError);
+            } else {
+                console.log('State saved successfully:', isEnabled);
+            }
             updateUI(isEnabled);
             
             // Send message to all YouTube tabs

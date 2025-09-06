@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Boring YouTube",
   "version": "1.0.0",
-  "description": "Makes YouTube thumbnails greyscale to reduce visual distractions, just like Arc's Boring YouTube boost.",
+  "description": "A lightweight browser extension that turns YouTube thumbnails grayscale — inspired by Arc's Boring YouTube Boost.",
   
   "permissions": [
     "*://www.youtube.com/*",
@@ -20,6 +20,7 @@
     "default_title": "Toggle Boring YouTube",
     "default_icon": {
       "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
       "48": "icons/icon-48.png",
       "128": "icons/icon-128.png"
     }
@@ -39,10 +40,11 @@
   
   "icons": {
     "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
   
-  "author": "Boring YouTube Extension",
-  "homepage_url": "https://github.com/your-username/boring-youtube"
+  "author": "Delacrix Morgan",
+  "homepage_url": "https://github.com/delacrixmorgan/BoringYouTube"
 }
