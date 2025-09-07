@@ -18,6 +18,41 @@ const assetsToCopy = [
     { from: 'shared/assets/icons/icon-128.png', to: 'icons/icon-128.png' }
 ];
 
+// Template files to process with version injection
+const templatesToProcess = [
+    { from: 'shared/templates/popup.html', to: 'popup.html' },
+    { from: 'shared/templates/manifest-firefox.json', to: 'manifest.json', platforms: ['firefox'] },
+    { from: 'shared/templates/manifest-chromium.json', to: 'manifest.json', platforms: ['chromium'] }
+];
+
+function getVersionFromPackageJson() {
+    try {
+        const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+        return packageJson.version;
+    } catch (error) {
+        console.error('✗ Failed to read version from package.json:', error.message);
+        process.exit(1);
+    }
+}
+
+function processTemplate(templatePath, outputPath, version) {
+    try {
+        let content = fs.readFileSync(templatePath, 'utf8');
+        content = content.replace(/{{VERSION}}/g, version);
+        
+        // Ensure destination directory exists
+        const destDir = path.dirname(outputPath);
+        if (!fs.existsSync(destDir)) {
+            fs.mkdirSync(destDir, { recursive: true });
+        }
+        
+        fs.writeFileSync(outputPath, content);
+        console.log(`✓ Processed ${templatePath} → ${outputPath} (v${version})`);
+    } catch (error) {
+        console.error(`✗ Failed to process template ${templatePath} → ${outputPath}:`, error.message);
+    }
+}
+
 function copyFile(src, dest) {
     try {
         // Ensure destination directory exists
@@ -43,7 +78,11 @@ function buildSharedAssets() {
         process.exit(1);
     }
     
-    // Copy assets to each platform
+    // Get version from package.json
+    const version = getVersionFromPackageJson();
+    console.log(`📋 Using version: ${version}\n`);
+    
+    // Process each platform
     platforms.forEach(platform => {
         const platformDir = path.join(platformsDir, platform);
         
@@ -54,6 +93,7 @@ function buildSharedAssets() {
         
         console.log(`📦 Building assets for ${platform}:`);
         
+        // Copy regular assets
         assetsToCopy.forEach(({ from, to }) => {
             const srcPath = from;
             const destPath = path.join(platformDir, to);
@@ -62,6 +102,23 @@ function buildSharedAssets() {
                 copyFile(srcPath, destPath);
             } else {
                 console.warn(`⚠ Source file '${srcPath}' not found, skipping...`);
+            }
+        });
+        
+        // Process templates with version injection
+        templatesToProcess.forEach(({ from, to, platforms: templatePlatforms }) => {
+            // If specific platforms are defined, only process for those platforms
+            if (templatePlatforms && !templatePlatforms.includes(platform)) {
+                return;
+            }
+            
+            const srcPath = from;
+            const destPath = path.join(platformDir, to);
+            
+            if (fs.existsSync(srcPath)) {
+                processTemplate(srcPath, destPath, version);
+            } else {
+                console.warn(`⚠ Template file '${srcPath}' not found, skipping...`);
             }
         });
         
