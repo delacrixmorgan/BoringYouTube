@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Boring YouTube",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight browser extension that turns YouTube thumbnails grayscale — inspired by Arc's Boring YouTube Boost.",
   
   "browser_specific_settings": {

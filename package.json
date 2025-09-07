@@ -1,12 +1,14 @@
 {
   "name": "boring-youtube-extension",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A cross-platform browser extension that makes YouTube thumbnails greyscale to reduce visual distractions",
   "scripts": {
     "build": "node build-shared-assets.js",
     "build:assets": "node build-shared-assets.js",
+    "package": "node package-extension.js",
+    "package:clean": "node build-shared-assets.js && node package-extension.js",
     "dev": "node build-shared-assets.js && echo 'Assets built! Load the extension from platform/firefox/ or platform/chromium/'",
-    "clean": "rm -rf platform/*/styles.css platform/*/icons/icon.svg platform/*/icons/generate-icons.html"
+    "clean": "rm -rf platform/*/styles.css platform/*/icons/icon.svg platform/*/icons/generate-icons.html dist/"
   },
   "keywords": [
     "browser-extension",
