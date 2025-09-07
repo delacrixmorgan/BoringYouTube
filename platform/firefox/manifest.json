@@ -4,6 +4,14 @@
   "version": "1.0.0",
   "description": "A lightweight browser extension that turns YouTube thumbnails grayscale — inspired by Arc's Boring YouTube Boost.",
   
+  "browser_specific_settings": {
+    "gecko": {
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  
   "permissions": [
     "*://www.youtube.com/*",
     "*://youtube.com/*",
