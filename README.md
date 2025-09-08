@@ -4,7 +4,6 @@
 
 [![Firefox](https://img.shields.io/badge/Firefox-FF7139?style=flat&logo=Firefox-Browser&logoColor=white)](https://addons.mozilla.org/en-GB/firefox/addon/boring-youtube/)
 [![Chrome](https://img.shields.io/badge/Chrome-4285F4?style=flat&logo=Google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/boring-youtube/apblcdimnigcdbnabbdigacidcaepkgj)
-[![Safari](https://img.shields.io/badge/Safari-000000?style=flat&logo=Safari&logoColor=white)](https://github.com/delacrixmorgan/BoringYouTube/releases)
 
 > Still getting sucked into YouTube rabbit holes by flashy thumbnails? We've all been there. Boring YouTube is here to help you focus.
 
@@ -23,7 +22,7 @@ It's that simple. Greyscale thumbnails = less distraction = more intentional vie
 - ✅ **Instant Greyscale**: Converts all YouTube thumbnails to greyscale automatically
 - ✅ **Smart Fullscreen Detection**: Automatically disables when you're watching videos fullscreen
 - ✅ **Dynamic Content Ready**: Works seamlessly with YouTube's single-page application
-- ✅ **Cross-Platform**: Available for **Firefox**, **Chrome**, **Edge**, and **Safari**
+- ✅ **Cross-Platform**: Available for **Firefox**, **Chrome** and **Edge**
 - ✅ **Lightweight & Fast**: Minimal performance impact, maximum focus
 - ✅ **Toggle Control**: Easy on/off switch
 - ✅ **Developer Friendly**: Clean, shared codebase architecture
@@ -51,11 +50,6 @@ It's that simple. Greyscale thumbnails = less distraction = more intentional vie
 4. Select the `platform/chromium/` folder
 5. Enjoy your distraction-free YouTube!
 
-**Safari**
-1. Open the `platform/webkit/BoringYouTubeSafari.xcodeproj` in Xcode
-2. Build and run the project
-3. Enable the extension in Safari preferences
-
 ## 🛠 How It Works
 
 1. **Detects YouTube**: The extension activates when you visit YouTube
@@ -76,7 +70,6 @@ This project uses a **shared asset architecture** to eliminate code duplication:
 ├── platform/
 │   ├── firefox/              # Manifest V2 + popup UI
 │   ├── chromium/             # Manifest V3, always-on
-│   └── webkit/               # Safari extension
 └── build-shared-assets.js    # Distribution script
 ```
 
@@ -108,7 +101,6 @@ node build-shared-assets.js
 **Platform-Specific Features:**
 - **Firefox**: Full popup UI with toggle functionality
 - **Chrome/Edge**: Always-on, minimal manifest
-- **Safari**: Native macOS app with extension
 
 ## ⚡ Tip
 
