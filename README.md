@@ -2,9 +2,9 @@
 
 ![walkthrough](screenshots/walkthrough.gif)
 
-[![Firefox](https://img.shields.io/badge/Firefox-FF7139?style=flat&logo=Firefox-Browser&logoColor=white)](https://github.com/delacrixmorgan/BoringYouTube)
-[![Chrome](https://img.shields.io/badge/Chrome-4285F4?style=flat&logo=Google-chrome&logoColor=white)](https://github.com/delacrixmorgan/BoringYouTube)
-[![Safari](https://img.shields.io/badge/Safari-000000?style=flat&logo=Safari&logoColor=white)](https://github.com/delacrixmorgan/BoringYouTube)
+[![Firefox](https://img.shields.io/badge/Firefox-FF7139?style=flat&logo=Firefox-Browser&logoColor=white)](https://addons.mozilla.org/en-GB/firefox/addon/boring-youtube/)
+[![Chrome](https://img.shields.io/badge/Chrome-4285F4?style=flat&logo=Google-chrome&logoColor=white)](https://chromewebstore.google.com/detail/boring-youtube/apblcdimnigcdbnabbdigacidcaepkgj)
+[![Safari](https://img.shields.io/badge/Safari-000000?style=flat&logo=Safari&logoColor=white)](https://github.com/delacrixmorgan/BoringYouTube/releases)
 
 > Still getting sucked into YouTube rabbit holes by flashy thumbnails? We've all been there. Boring YouTube is here to help you focus.
 
@@ -32,9 +32,8 @@ It's that simple. Greyscale thumbnails = less distraction = more intentional vie
 ## 🚀 Installation
 
 ### Browser Extension Stores 📦
-- [Firefox Add-Ons](https://addons.mozilla.org/en-GB)
-- [Chrome Web Store](https://chromewebstore.google.com)
-- [Safari - Coming Soon]()
+- [Firefox Add-Ons](https://addons.mozilla.org/en-GB/firefox/addon/boring-youtube/)
+- [Chrome Web Store](https://chromewebstore.google.com/detail/boring-youtube/apblcdimnigcdbnabbdigacidcaepkgj)
 - [GitHub Releases](https://github.com/delacrixmorgan/BoringYouTube/releases)
 
 ### Local Installation 💻
