@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "message": "Boring YouTube",
+    "description": "The name of the extension in Spanish"
+  },
+  "extensionDescription": {
+    "message": "Deja de hacer scroll sin rumbo. La escala de grises elimina el clickbait visual para que veas YouTube con intención — más enfoque, más productividad.",
+    "description": "A high-intent description shown in the Chrome Web Store in Spanish"
+  }
+}

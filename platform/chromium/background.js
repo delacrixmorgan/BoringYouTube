@@ -1,76 +1,34 @@
-// Background service worker for Boring YouTube extension (Manifest V3)
-// Handles state management and communication
+// Boring YouTube — Background Service Worker (Manifest V3)
 
-// Initialize extension state
-function initializeExtensionState() {
-    chrome.storage.sync.get(['extensionEnabled'], function(result) {
-        // If no value is stored, set default to true
-        if (result.extensionEnabled === undefined) {
-            chrome.storage.sync.set({ extensionEnabled: true }, function() {
-                console.log('Boring YouTube extension state initialized to enabled');
-            });
-        }
-    });
+// Set default state and open onboarding page on fresh install
+chrome.runtime.onInstalled.addListener(function (details) {
+    if (details.reason === 'install') {
+        chrome.storage.local.set({
+            boringEnabled: false,
+            installDate: Date.now(),
+            toggleCount: 0,
+            ratingPromptDismissed: false
+        });
+        // Open the welcome/onboarding page in a new tab
+        chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') });
+        console.log('Boring YouTube installed — default state: OFF');
+    }
+});
+
+// Update badge to reflect current state
+function updateBadge(enabled) {
+    chrome.action.setBadgeText({ text: enabled ? 'ON' : '' });
+    chrome.action.setBadgeBackgroundColor({ color: enabled ? '#7B6FA0' : '#888888' });
 }
 
-// Handle extension installation
-chrome.runtime.onInstalled.addListener(function() {
-    // Set default state to enabled
-    chrome.storage.sync.set({ extensionEnabled: true });
-    console.log('Boring YouTube extension installed');
-});
-
-// Handle service worker startup
-chrome.runtime.onStartup.addListener(function() {
-    initializeExtensionState();
-    console.log('Boring YouTube extension startup - state checked');
-});
-
-// Initialize immediately when service worker starts
-initializeExtensionState();
-
-// Handle messages from popup and content scripts
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.action === 'getState') {
-        chrome.storage.sync.get(['extensionEnabled'], function(result) {
-            // Ensure we always return a boolean value, defaulting to true
-            const isEnabled = result.extensionEnabled !== false;
-            sendResponse({ enabled: isEnabled });
-        });
-        return true; // Keep message channel open for async response
+// Sync badge whenever storage changes
+chrome.storage.onChanged.addListener(function (changes, area) {
+    if (area === 'local' && changes.boringEnabled !== undefined) {
+        updateBadge(changes.boringEnabled.newValue === true);
     }
 });
 
-// Optional: Update icon based on state (for visual feedback)
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-    if (namespace === 'sync' && changes.extensionEnabled) {
-        const isEnabled = changes.extensionEnabled.newValue;
-        
-        // You can update the icon here if you have different icon states
-        // For now, we'll keep the same icon regardless of state
-        console.log('Extension state changed:', isEnabled ? 'enabled' : 'disabled');
-        
-        // Optional: Set badge text to show state
-        chrome.action.setBadgeText({
-            text: isEnabled ? '' : 'OFF'
-        });
-        
-        chrome.action.setBadgeBackgroundColor({
-            color: '#f44336'
-        });
-    }
-});
-
-// Keep service worker alive by handling periodic events
-chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name === 'keepAlive') {
-        // This helps prevent the service worker from being terminated
-        console.log('Service worker keep-alive ping');
-    }
-});
-
-// Create a keep-alive alarm
-chrome.alarms.create('keepAlive', { 
-    delayInMinutes: 1, 
-    periodInMinutes: 1 
+// Restore badge on service-worker startup
+chrome.storage.local.get(['boringEnabled'], function (result) {
+    updateBadge(result.boringEnabled === true);
 });

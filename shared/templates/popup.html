@@ -1,38 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <div class="popup-container">
-        <div class="header">
-            <h3>Boring YouTube</h3>
+    <div class="popup-card">
+
+        <div class="popup-header">
+            <span class="popup-icon">📺</span>
+            <h1 class="popup-title">Boring YouTube</h1>
         </div>
-        
-        <div class="toggle-section">
-            <div class="toggle-container">
-                <label class="toggle-switch">
-                    <input type="checkbox" id="extensionToggle">
-                    <span class="slider"></span>
-                </label>
-                <span class="toggle-label" id="toggleLabel">Enabled</span>
-            </div>
-            <p class="description">Make YouTube thumbnails grayscale</p>
+
+        <div class="toggle-scene-wrapper">
+            <label class="toggle-scene" for="extensionToggle" aria-label="Toggle Boring Mode">
+                <input type="checkbox" id="extensionToggle">
+
+                <!-- Track background layers -->
+                <span class="track">
+                    <!-- Night sky elements -->
+                    <span class="star star-1">★</span>
+                    <span class="star star-2">★</span>
+                    <span class="star star-3">★</span>
+                    <span class="star star-4">★</span>
+                    <span class="star star-5">★</span>
+                    <span class="star star-6">★</span>
+
+                    <!-- The thumb: sun (off) / moon (on) -->
+                    <span class="thumb"></span>
+                </span>
+            </label>
         </div>
-        
-        <div class="status" id="status">
-            <span class="status-indicator" id="statusIndicator"></span>
-            <span id="statusText">Extension is active</span>
+
+        <div class="state-label" id="stateLabel">
+            <span class="state-emoji" id="stateEmoji">☀️</span>
+            <span class="state-text" id="stateText">All Colors On</span>
         </div>
-        
-        <div class="version-section">
-            <a href="https://github.com/delacrixmorgan/BoringYouTube" class="version-link" id="versionLink">
-                <span class="version-text">v{{VERSION}}</span>
+
+        <div class="popup-footer">
+            <a href="https://github.com/delacrixmorgan/BoringYouTube" class="version-link" target="_blank" rel="noopener">
+                v{{VERSION}}
             </a>
         </div>
+
     </div>
-    
     <script src="popup.js"></script>
 </body>
 </html>

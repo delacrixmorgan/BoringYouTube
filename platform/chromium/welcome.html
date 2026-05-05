@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Boring YouTube</title>
+    <style>
+        /* =====================================================
+           Boring YouTube — Welcome / Onboarding Page
+           Pastel · Flat · Neo-brutalist aesthetic
+           ===================================================== */
+
+        /* --- CSS Variables (mirrors popup.css) -------------- */
+        :root {
+            --day-sky-top:    #74C0FC;
+            --day-sky-bottom: #A5D8FF;
+            --popup-bg:       #FAFAFA;
+            --card-radius:    20px;
+            --text-primary:   #1C1C1E;
+            --text-secondary: #6C757D;
+            --border-color:   #E9ECEF;
+            --footer-color:   #ADB5BD;
+            --accent-purple:  #7B6FA0;
+            --accent-purple-light: #EDE9F5;
+            --accent-green:   #51CF66;
+            --accent-green-light: #EBFBEE;
+            --t-fade: 0.3s ease;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(160deg, var(--day-sky-top) 0%, var(--day-sky-bottom) 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+        }
+
+        /* --- Card ------------------------------------------- */
+        .card {
+            background: var(--popup-bg);
+            border-radius: var(--card-radius);
+            outline: 2.5px solid var(--text-primary);
+            box-shadow: 6px 6px 0px var(--text-primary);
+            max-width: 520px;
+            width: 100%;
+            padding: 40px 36px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* --- Header ----------------------------------------- */
+        .header {
+            text-align: center;
+        }
+
+        .header-icon {
+            font-size: 48px;
+            line-height: 1;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+
+        /* --- Divider ---------------------------------------- */
+        .divider {
+            height: 1.5px;
+            background: var(--border-color);
+            border: none;
+        }
+
+        /* --- Steps ------------------------------------------ */
+        .steps-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent-purple-light);
+            outline: 2px solid var(--accent-purple);
+            color: var(--accent-purple);
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-body {
+            padding-top: 4px;
+        }
+
+        .step-heading {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* --- Tip banner ------------------------------------- */
+        .tip {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent-green-light);
+            border-radius: 12px;
+            outline: 1.5px solid var(--accent-green);
+            padding: 14px 16px;
+        }
+
+        .tip-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .tip-text {
+            font-size: 13px;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .tip-text strong {
+            font-weight: 700;
+        }
+
+        /* --- CTA Button ------------------------------------- */
+        .cta-btn {
+            display: block;
+            width: 100%;
+            background: var(--accent-purple);
+            color: #FFFFFF;
+            text-decoration: none;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            outline: 2.5px solid var(--text-primary);
+            box-shadow: 4px 4px 0px var(--text-primary);
+            transition: transform var(--t-fade), box-shadow var(--t-fade);
+        }
+
+        .cta-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--text-primary);
+        }
+
+        .cta-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--text-primary);
+        }
+
+        /* --- Review Button ---------------------------------- */
+        .review-btn {
+            display: block;
+            width: 100%;
+            background: transparent;
+            color: var(--accent-purple);
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            outline: 2px solid var(--accent-purple);
+            box-shadow: 3px 3px 0px var(--accent-purple);
+            transition: transform var(--t-fade), box-shadow var(--t-fade);
+        }
+
+        .review-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0px var(--accent-purple);
+        }
+
+        .review-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px var(--accent-purple);
+        }
+
+        /* --- Footer ----------------------------------------- */
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: var(--footer-color);
+            line-height: 1.6;
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+
+        <!-- Header -->
+        <div class="header">
+            <span class="header-icon">📺</span>
+            <h1 class="header-title">Welcome to Boring YouTube</h1>
+            <p class="header-subtitle">
+                You've just unlocked distraction-free viewing.
+                Here's how to get the most out of it.
+            </p>
+        </div>
+
+        <hr class="divider">
+
+        <!-- How it works -->
+        <div>
+            <p class="steps-title">How it works</p>
+            <div class="steps">
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-body">
+                        <p class="step-heading">Click the extension icon 📺</p>
+                        <p class="step-desc">Find the Boring YouTube icon in your Chrome toolbar, next to the address bar.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-body">
+                        <p class="step-heading">Toggle Boring Mode ON 🌙</p>
+                        <p class="step-desc">Flip the sun/moon switch to activate greyscale thumbnails across all of YouTube.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-body">
+                        <p class="step-heading">Browse with intention ✅</p>
+                        <p class="step-desc">Without colourful clickbait, you'll only click on videos you actually want to watch.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Tip -->
+        <div class="tip">
+            <span class="tip-icon">💡</span>
+            <p class="tip-text">
+                <strong>Pro tip:</strong> Pin the extension to your toolbar for instant access.
+                Right-click the 🧩 puzzle icon → <em>"Pin Boring YouTube"</em>.
+            </p>
+        </div>
+
+        <!-- CTAs -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            <a href="https://www.youtube.com" class="cta-btn" target="_blank" rel="noopener">
+                Go to YouTube →
+            </a>
+            <a href="https://chromewebstore.google.com/detail/boring-youtube/apblcdimnigcdbnabbdigacidcaepkgj/reviews" class="review-btn" target="_blank" rel="noopener">
+                Leave a Review ⭐
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <p class="footer">
+            Boring YouTube v2.0.0 · Made by <a href="https://github.com/delacrixmorgan" target="_blank" rel="noopener">Delacrix Morgan</a><br>
+            <a href="https://github.com/delacrixmorgan/BoringYouTube" target="_blank" rel="noopener">View on GitHub</a>
+        </p>
+
+    </div>
+
+</body>
+</html>

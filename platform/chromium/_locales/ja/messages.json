@@ -1,0 +1,10 @@
+{
+  "extensionName": {
+    "message": "Boring YouTube",
+    "description": "The name of the extension in Japanese"
+  },
+  "extensionDescription": {
+    "message": "無意識のスクロールを止めよう。グレースケールでクリックベイトを排除し、意図的な視聴を促進。集中力と生産性を高めます。",
+    "description": "A high-intent description shown in the Chrome Web Store in Japanese"
+  }
+}
